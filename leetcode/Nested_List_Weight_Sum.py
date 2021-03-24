@@ -51,6 +51,8 @@ class Solution:
     def getSum(self, nestedList, level):
         for item in nestedList:
             if item.isInteger():
+                # if it is an int,
                 self.res += level * item.getInteger()
             else:
+                # otherwise, convert it to a list
                 self.getSum(item.getList(), level + 1)
