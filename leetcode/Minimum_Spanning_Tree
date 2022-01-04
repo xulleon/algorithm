@@ -1,0 +1,52 @@
+# https://www.lintcode.com/problem/629/
+'''
+Definition for a Connection
+class Connection:
+
+    def __init__(self, city1, city2, cost):
+        self.city1, self.city2, self.cost = city1, city2, cost
+'''
+class Solution:
+    # @param {Connection[]} connections given a list of connections
+    # include two cities and cost
+    # @return {Connection[]} a list of connections from results
+    def lowestCost(self, connections):
+        # Write your code here
+        ret = []
+        connections.sort(key=lambda conn: (conn.cost, conn.city1, conn.city2))
+        cities = set()
+        for conn in connections:
+            cities.add(conn.city1)
+            cities.add(conn.city2)
+
+        self.father = {city: city for city in cities}
+
+        for conn in connections:
+            if self.union(conn):
+                ret.append(conn)
+            
+        if len(ret) != len(cities) - 1:
+            return []
+
+        return ret
+
+    def union(self, connection):
+        city1 = connection.city1
+        city2 = connection.city2
+        root1 = self.find(city1)
+        root2 = self.find(city2)
+        path = []
+        if root1 != root2:
+            self.father[root1] = root2
+            path.append(root1)
+            return True
+
+        return False
+
+    def find(self, city):
+        while self.father[city] != city:
+            # do something
+            city = self.father[city]
+
+        else:
+            return city
