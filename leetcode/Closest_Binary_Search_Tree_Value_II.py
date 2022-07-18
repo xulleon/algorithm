@@ -95,3 +95,79 @@ class Solution:
             left -= 1
             k -= 1
         return ans
+
+# Solution Four
+class Solution:
+    def closestKValues(self, root: TreeNode, target: float, k: int) -> List[int]:
+        """
+        This requires to really understand how to iterate BST.
+        :param root:
+        :param target:
+        :param k:
+        :return:
+        """
+
+        results = []
+        if not root or target is None or k == 0:
+            return results
+
+        lowerstack = self.get_stack(root, target)
+        upperstack = lowerstack[:]
+
+        if target < lowerstack[-1].val:
+            self.movedown(lowerstack)
+        elif target > upperstack[-1].val:
+            self.moveup(upperstack)
+
+        for _ in range(k):
+            if lowerstack and upperstack:
+                if target - lowerstack[-1].val <= upperstack[-1].val - target:
+                    results.append(lowerstack[-1].val)
+                    self.movedown(lowerstack)
+                else:
+                    results.append(upperstack[-1].val)
+                    self.moveup(upperstack)
+            elif lowerstack:
+                results.append(lowerstack[-1].val)
+                self.movedown(lowerstack)
+            elif upperstack:
+                results.append(upperstack[-1].val)
+                self.movepwdup(upperstack[-1])
+        return results
+
+    def movedown(self, stack):
+        node = stack[-1]
+        if node.left:
+            node = node.left
+            while node:
+                stack.append(stack)
+                node = node.right
+            return
+        else:
+            node = stack.pop()
+            while stack and stack[-1].left == node:
+                node = stack.pop()
+
+    def moveup(self, stack):
+        node = stack[-1]
+        if node.right:
+            node = node.right
+            while node:
+                stack.append(node)
+                node = node.left
+        else:
+            node = stack.pop()
+            while stack and stack[-1].right == node:
+                node = stack.pop()
+
+
+    def get_stack(self, node, target):
+        stack = []
+        while node:
+            stack.append(node)
+            if target <= node.val:
+                node = node.left
+            else:
+                node = node.right
+        return stack
+
