@@ -14,8 +14,7 @@ class Solution:
             num_set.update(seq)
         graph = self.build_graph(sequences, num_set)
         indegree = self.get_indegree(graph, sequences, num_set)
-        res = self.bfs(indegree, graph)
-        return True if res == nums else False
+        return self.bfs(indegree, graph, nums)
 
     def build_graph(self, sequences, num_set):
         graph = {k: set() for k in num_set}
@@ -33,7 +32,7 @@ class Solution:
 
         return indegree
 
-    def bfs(self, indegree, graph):
+    def bfs(self, indegree, graph, nums):
         queue = [k for k, v in indegree.items() if v == 0]
         res = []
         while queue:
@@ -47,5 +46,5 @@ class Solution:
                 if indegree[nbr] == 0:
                     queue.append(nbr)
 
-        return res
+        return res == nums
 
