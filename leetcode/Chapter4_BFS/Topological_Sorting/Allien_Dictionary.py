@@ -9,6 +9,7 @@ the graph is to create a dictionary that describe the dependency
 by using
 {a: [a1,a2,a3], b: [b1, b2, b3]} stype dictionary
 """
+# SOLUTION 1
 from collections import defaultdict
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
@@ -73,3 +74,62 @@ class Solution:
                     visited[nbr] = True
 
         return ''.join(res)
+
+# SOLUTION 2
+from collections import deque, defaultdict
+class Solution:
+    def alienOrder(self, words: List[str]) -> str:
+        if len(words) == 0:
+            return ''
+        
+        chars_set = set()
+        for word in words:
+            chars_set.update(word)
+            
+        graph = self.build_graph(words, chars_set)
+        indegree = self.get_indegree(graph, chars_set)
+        return self.bfs(graph, indegree, chars_set)
+        
+    def build_graph(self, words, chars_set):
+        # This is very important!!!
+        graph = {k: [] for k in chars_set}
+        for i in range(len(words) -1):
+            word1, word2 = words[i], words[i+1]
+            
+            if len(word1) > len(word2) and word1.startswith(word2):
+                return {}
+            
+            max_len = min(len(word1), len(word2))  
+            for j in range(max_len):
+                if word1[j] != word2[j]:
+                    graph[word1[j]].append(word2[j])
+                    break
+
+        return graph
+    
+    def get_indegree(self, graph, chars_set):
+        # This is very important!!!
+        indegree = {k: 0 for k in chars_set}
+            
+        for vs in graph.values():
+            for v in vs:
+                indegree[v] += 1
+
+        return indegree
+    
+    def bfs(self, graph, indegree, chars_set):
+        if not graph:
+            return ''
+        
+        starts = [k for k in indegree if indegree[k] == 0]
+        queue = deque(starts)
+        res = []
+        while queue:
+            head = queue.popleft()
+            res.append(head)
+            for nbr in graph[head]:
+                indegree[nbr] -= 1
+                if indegree[nbr] == 0:
+                    queue.append(nbr)
+                    
+        return ''.join(res) if len(res) == len(chars_set) else ''
