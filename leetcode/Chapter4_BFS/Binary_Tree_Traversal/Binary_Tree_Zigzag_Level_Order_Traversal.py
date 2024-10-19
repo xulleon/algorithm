@@ -6,6 +6,44 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+# Solution 1
+# Runtime: 0 ms, faster than 100.00% of Python3 online submissions for Binary Tree Zigzag Level Order Traversal.
+# Memory Usage: 16.9 MB, less than 15.72% of Python3 online submissions for Binary Tree Zigzag Level Order Traversal.
+from collections import deque, defaultdict
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if root is None:
+            return []
+        
+        queue = deque([root])
+        res = []
+        dirct = 1
+        while queue:
+            grp = []
+            size = len(queue)
+            for i in range(size):
+                head = queue.popleft()
+                if dirct > 0:
+                    grp.append(head.val)
+                else:
+                    grp = [head.val] + grp
+                    
+                for nbr in [head.left, head.right]:
+                    if nbr:
+                        queue.append(nbr)
+                    
+            res.append(grp)
+            dirct *= -1
+        return res
+
+# Solution 2
 class Solution:
     def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         res = []
