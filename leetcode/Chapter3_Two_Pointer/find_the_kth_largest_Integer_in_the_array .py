@@ -1,4 +1,6 @@
 # https://leetcode.com/problems/find-the-kth-largest-integer-in-the-array/
+# Runtime: 38 ms, faster than 96.86% of Python3 online submissions for Find the Kth Largest Integer in the Array.
+# Memory Usage: 24.1 MB, less than 96.50% of Python3 online submissions for Find the Kth Largest Integer in the
 class Solution:
     def kthLargestNumber(self, nums: List[str], k: int) -> str:
         if nums is None or len(nums) == 0:
