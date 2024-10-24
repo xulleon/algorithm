@@ -1,5 +1,5 @@
-#
-#
+# https://www.lintcode.com/problem/57/description
+# 81 ms time cost 5.11 MB memory cost Your submission beats 65.80 % Submissions
 from collections import defaultdict
 from typing import (
     List,
