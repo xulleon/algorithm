@@ -70,8 +70,11 @@ class Solution:
         # Since we know if each char and its neighbor combined is a palindrome, 
         # then we will expend each neighbor pair on its left and right
         # the above already initialized 1string of 1 char and 2 chars. next we will test starting from 3 chars
-        # The following i is the difference between start and end. i = end - start. 2 
-        # means that there are 2+1 = 3 chars. 
+        # The following i is the length of the substring, as we know we already know, start = end = 0 and 
+        # start = 0 and end = 1. Now we need do it from start = 0 to end = 2. This is why i needs to start from 2.
+        # Therefore, 2 really means the length of the string is 3. because when start == end, it means the string 
+        # length is 1, when end = start + 1, i.e. s[0] and s[1] It can also be represented as s[1: 2]. The string 
+        # length is 2 means that there are 2+1 = 3 chars. 
         # Here start is represented by row number and end is represented by column number
         for i in range(2, n): 
             # start is the row
