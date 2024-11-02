@@ -22,6 +22,9 @@ class Solution:
         start1, end1 = 0, 0
         # Step 3: for a string with n chars, fro ith to 
         # jth substring, the subsequence is max(dp[i-1][j], dp[i][j-1])
+        # must remember the range is from 3 to n + 1 not from 3 to n
+        # because the length is from 1 to n. if range(3, n), then the 
+        # max_len is n - 1!!!!
         for dist in range(3, n + 1):
             for start in range(n):
                 end = start + dist - 1
