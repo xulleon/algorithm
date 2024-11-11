@@ -48,7 +48,29 @@ class Solution:
     def dfs(self, root, results):
         if root is None:
             return
-        
         self.dfs(root.left, results)
         self.dfs(root.right, results)
         results.append(root.val)
+        
+# none recursion one
+# Runtime: 0 ms, faster than 100.00% of Python3 online submissions for Binary Tree Postorder Traversal.
+# Memory Usage: 16.6 MB, less than 21.32% of Python3 online submissions for Binary Tree Postorder Traversal.
+class Solution:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if root is None:
+            return []
+        
+        results, stack = [],[root]
+        while len(stack) > 0:
+            node = stack.pop()
+            results.append(node.val)
+            
+            if node.left:
+                stack.append(node.left)
+                
+            if node.right:
+                stack.append(node.right)
+                
+        return results[::-1]
+        
+
