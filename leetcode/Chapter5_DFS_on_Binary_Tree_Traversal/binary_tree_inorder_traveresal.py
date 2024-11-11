@@ -54,50 +54,52 @@ class Solution:
 #         self.val = val
 #         self.left = left
 #         self.right = right
-# Iteration One
+# Iteration one
 class Solution:
 
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         if root is None:
             return []
-
-        res, path = [], []
+        
+        stack, results = [], []
+        
         while root:
-            path.append(root)
+            stack.append(root)
             root = root.left
-
-        while path:
-            node = path[-1]
-            res.append(node.val)
-
+            
+        while len(stack) > 0:
+            node = stack[-1]
+            results.append(node.val)
+            
             if node.right:
                 node = node.right
                 while node:
-                    path.append(node)
+                    stack.append(node)
                     node = node.left
+                
             else:
-                node = path.pop()
-                while path and path[-1].right == node:
-                    node = path.pop()
-
-        return res
+                node = stack.pop()
+                while len(stack) > 0 and stack[-1].right == node:
+                    node = stack.pop()
+        return results
 
 # Iteration Two
 class Solution:
+    
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         if root is None:
             return []
-
-        res,  path = [], []
-        while path or root:
+        
+        stack, results = [], []
+        
+        while len(stack) > 0 or root:
             while root:
-                path.append(root)
+                stack.append(root)
                 root = root.left
-
-            root = path.pop()
-            res.append(root.val)
-
+                
+            root = stack.pop()
+            results.append(root.val)
+            
             root = root.right
-
-        return res
+        return results
 
