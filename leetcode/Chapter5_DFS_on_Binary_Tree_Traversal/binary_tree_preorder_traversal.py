@@ -47,3 +47,25 @@ class Solution:
                 root = root.right
                 
         return results
+
+# None Recursion
+# Runtime: 0 ms, faster than 100.00% of Python3 online submissions for Binary Tree Preorder Traversal.
+# Memory Usage: 16.7 MB, less than 21.47% of Python3 online submissions for Binary Tree Preorder Traversal.
+class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if root is None:
+            return []
+
+        results, stack = [], [root]
+        
+        while len(stack) > 0:
+            root = stack.pop()
+            results.append(root.val)
+            
+            if root.right:
+                stack.append(root.right)
+                
+            if root.left:
+                stack.append(root.left)
+                
+        return results
