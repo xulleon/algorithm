@@ -16,6 +16,9 @@ path.append(str(root.val) + '->' + path)
 #         self.val = val
 #         self.left = left
 #         self.right = right
+# divide & conquer
+# Runtime: 0 ms, faster than 100.00% of Python3 online submissions for Binary Tree Paths.
+# Memory Usage: 16.7 MB, less than 7.13% of Python3 online submissions for Binary Tree Paths.
 class Solution:
     def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
         if root is None:
@@ -41,7 +44,8 @@ class Solution:
         return paths
 
 ## Recursive ##
-
+# Runtime: 0 ms, faster than 100.00% of Python3 online submissions for Binary Tree Paths.
+# Memory Usage: 16.6 MB, less than 72.16% of Python3 online submissions for Binary Tree Paths.
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
