@@ -1,6 +1,6 @@
 # https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 
-# Traversal Solution Two: Iteration One
+# Traversal Solution One: Iteration One
 # Runtime: 67 ms, faster than 73.24% of Python3 online submissions for Kth Smallest Element in a BST.
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
@@ -77,3 +77,55 @@ class Solution:
             return -heappop(res)
         return None
 
+# Morris Algorithm
+# Runtime: 0 ms, faster than 100.00% of Python3 online submissions for Kth Smallest Element in a BST.
+# Memory Usage: 20.2 MB, less than 21.29% of Python3 online submissions for Kth Smallest Element in a BST.
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        if root is None or k == 0:
+            return
+        
+        stack = []
+        while root:
+            if root.left:
+                cur = root.left
+                while cur.right and cur.right != root:
+                    cur = cur.right
+                    
+                if cur.right == root:
+                    cur.right = None
+                    k -= 1
+                    if k == 0:
+                        return root.val
+                    root = root.right
+                    
+                else:
+                    cur.right = root
+                    root = root.left
+            else:
+                k -= 1
+                if k == 0:
+                    return root.val
+                root = root.right
+
+# None Recursion
+# Runtime: 0 ms, faster than 100.00% of Python3 online submissions for Kth Smallest Element in a BST.
+# Memory Usage: 20.2 MB, less than 21.29% of Python3 online submissions for Kth Smallest Element in a BST.
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        if root is None or k == 0:
+            return None
+        res = []
+        def inorder(root, k):
+            if root is None:
+                return 
+            
+            inorder(root.left, k)
+            res.append(root.val)
+            if len(res) >= k:
+                return 
+            
+            inorder(root.right, k)
+            
+        inorder(root, k)
+        return res[k-1]
