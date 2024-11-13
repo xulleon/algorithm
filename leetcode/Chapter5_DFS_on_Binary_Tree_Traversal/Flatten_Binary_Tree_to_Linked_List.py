@@ -59,6 +59,8 @@ class Solution:
 # 4) root.left = None
 # 5) if self.lastnode. block is the next time space of the following preorder process. 
 #    it means when self.lastnode is root, then "the root" is either root.left or root.right.
+# Runtime: 3 ms, faster than 11.59% of Python3 online submissions for Flatten Binary Tree to Linked List.
+# Memory Usage: 16.9 MB, less than 40.22% of Python3 online submissions for Flatten Binary Tree to Linked List.
 class Solution:
     lastnode = None
     def flatten(self, root: Optional[TreeNode]) -> None:
