@@ -171,3 +171,89 @@ class Solution:
                 node = node.right
         return stack
 
+# Solution Five - use list
+class Solution:
+    def closestKValues(self, root: Optional[TreeNode], target: float, k: int) -> List[int]:
+        if root is None:
+            return []
+        
+        results, low_q, high_q = [], [], []
+        self.inorder(root, target, low_q, high_q)
+
+        self.find_closest(root, target, k, low_q, high_q, results)
+        return results
+    
+    def inorder(self, node, target, low_q, high_q):
+        if node is None:
+            return
+        
+        self.inorder(node.left, target, low_q, high_q)
+        if target >= node.val:
+            low_q.append(node.val)
+        else:
+            high_q.insert(0, node.val)
+        
+        self.inorder(node.right, target, low_q, high_q)
+        
+    def find_closest(self, root, target, k, low_q, high_q, results):
+        if root is None:
+            return
+        
+        while k > 0:
+            if len(low_q) > 0 and len(high_q) > 0:
+                if target - low_q[-1] <= high_q[-1] - target:
+                    results.append(low_q.pop())
+                else:
+                    results.append(high_q.pop())
+            elif len(low_q) > 0:
+                results.append(low_q.pop())
+            elif len(high_q) > 0:
+                results.append(high_q.pop())
+                
+            k -= 1
+        return results
+
+# Solution Six - using heapq
+from collections import deque
+import heapq
+class Solution:
+    def closestKValues(self, root: Optional[TreeNode], target: float, k: int) -> List[int]:
+        if root is None or k == 0:
+            return []
+        
+        results, lowerq, higherq = [], [], []
+        
+        self.inorder(root, target, lowerq, higherq)
+        
+        while k > 0:
+            if len(lowerq) > 0 and len(higherq) > 0:
+                lowerB, higherB = -lowerq[0], higherq[0]
+                if target - lowerB <= higherB - target:
+                    lowerB = -heapq.heappop(lowerq)
+                    results.append(lowerB)
+                else:
+                    higherB = heapq.heappop(higherq)
+                    results.append(higherB)
+            elif len(lowerq) > 0:
+                lowerB = -heapq.heappop(lowerq)
+                results.append(lowerB)
+            elif len(higherq) > 0:
+                higherB = heapq.heappop(higherq)
+                results.append(higherB)
+            k -= 1
+        return results
+        
+        
+    def inorder(self, node, target, lowerq, higherq):
+        if node is None:
+            return
+        
+        self.inorder(node.left, target, lowerq, higherq)
+        if target >= node.val:
+            heapq.heappush(lowerq, -node.val)
+        else:
+            heapq.heappush(higherq, node.val)
+            
+        self.inorder(node.right, target, lowerq, higherq)
+
+
