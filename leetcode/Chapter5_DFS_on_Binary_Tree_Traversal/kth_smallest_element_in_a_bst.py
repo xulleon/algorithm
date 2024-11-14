@@ -129,3 +129,27 @@ class Solution:
             
         inorder(root, k)
         return res[k-1]
+
+# None Recursion
+# Runtime: 0 ms, faster than 100.00% of Python3 online submissions for Kth Smallest Element in a BST.
+# Memory Usage: 20.1 MB, less than 22.22% of Python3 online submissions for Kth Smallest Element in a BST.
+# None Recursion
+class Solution:
+    cnt = 0
+    node = None
+    res = []
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        if root is None:
+            return None
+        
+        self.kthSmallest(root.left, k)
+        self.cnt += 1
+        if k == self.cnt:
+            self.node = root.Val
+        if self.cnt >= k:
+            # This is needed 
+            return self.node
+
+        self.kthSmallest(root.right, k)
+        return self.node
+
