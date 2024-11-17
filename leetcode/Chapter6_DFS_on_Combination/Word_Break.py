@@ -28,3 +28,4 @@ class Solution:
 
         # since it does not collect all possible combinations, use this. Otherwise, can not use it.
         dp[prefix] = False
+        return Flase
