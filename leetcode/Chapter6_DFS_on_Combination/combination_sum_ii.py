@@ -5,6 +5,38 @@ The following is very efficient to resolve problem with the same list of values
 30
 It basically make this problem to be [(1, 100), (2,1)]
 """
+# solution 1
+# Runtime: 3 ms, faster than 95.03% of Python3 online submissions for Combination Sum II.
+# Memory Usage: 16.6 MB, less than 91.87% of Python3 online submissions for Combination Sum II.
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        if candidates == []:
+            return []
+        
+        candidates.sort()
+        results = []
+        
+        self.dfs(candidates, 0, [], target, results)
+        return results
+
+    def dfs(self, nums, index, subsets, target, results):
+        if target == 0:
+            results.append(subsets)
+            
+        for i in range(index, len(nums)):
+            num = nums[i]
+            if num > target:
+                return
+            
+            if i != index and nums[i] == nums[i-1]:
+                continue
+                
+            subsets.append(num)
+            self.dfs(nums, i + 1, subsets[:], target - num, results)
+            subsets.pop()
+            
+        
+# Solution 2
 
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
