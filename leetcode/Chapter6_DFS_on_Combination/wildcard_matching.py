@@ -1,4 +1,5 @@
 # https://leetcode.com/problems/wildcard-matching/
+# https://www.youtube.com/watch?v=3ZDZ-N0EPV0
 # Runtime: 274 ms, faster than 69.37% of Python3 online submissions for Wildcard Matching.
 # Memory Usage: 25.1 MB, less than 44.26% of Python3 online submissions for Wildcard Matching.
 class Solution:
