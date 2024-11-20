@@ -34,8 +34,10 @@ class Solution:
                 a1=pattern[j]
                 a2=s[i]
                 if pattern[j] == '?' or s[i] == pattern[j]:
+                    # abba vs abb? or abba vs abba, both situations, abb is in both s and p
                     dp[i][j] = dp[i-1][j-1]
                 elif pattern[j] == '*':
+                    # abba vs abba* or abb vs abb*
                     dp[i][j] = dp[i][j-1] or dp[i-1][j]
 
         return dp[n-1][m-1]
