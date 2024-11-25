@@ -8,6 +8,8 @@ Usually build_graph is different from problem to another. However,
 the graph is to create a dictionary that describe the dependency
 by using
 {a: [a1,a2,a3], b: [b1, b2, b3]} stype dictionary
+Input: words = ["wrt","wrf","er","ett","rftt"]
+Output: "wertf"
 """
 # SOLUTION 1
 from collections import defaultdict
