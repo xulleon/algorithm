@@ -1,5 +1,12 @@
 # https://www.lintcode.com/problem/414/
 # 81 ms time cost· 5.06 MB memory cost· Your submission beats 97.20 % Submissions
+# take 10/3 for example. instead of using division, we can use subtraction. 
+# 1) 10 -3 -3 -3 = 10 - 3 x 3 = 1. when the remaining 1 <= 3, then we can say that the quotient is 3
+# 2) we can do it the other way. dividend = 10, divisor = 3, multiplier = 1, quotient = 0
+#   2.1) divisor = 3.  if multiplier = 1. we can do multiplier <<= 1. this results multiplier to be 2. divisor <<= 1. this results divisor to be 6. The dividend is 10 - 3x2 = 4
+#   2.2) quotient += multiplier, quotient is 2
+#   2.3) dividend = 10 - 6 -> 4, divisor = 3, multiplier = 1
+#   2.4) dividend > divisor (4 > 3). but dividend < divisor << 1, quotient += multiplier, therefore, quotient is 2 + 1 -> 3
 class Solution:
     """
     @param dividend: the dividend
