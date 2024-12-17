@@ -19,6 +19,7 @@ class Solution:
             # so that they can be popped out.
             heappush(heap, (-abs(target - node.val), node.val))
             if len(heap) > k:
+                # pop the node with highest diff of target and node.val
                 heappop(heap)
             inorder(node.right)
 
