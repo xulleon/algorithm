@@ -21,10 +21,11 @@ class Solution:
         # i = n-2 is because, it need to compare i and i + 1
         # Therefore, find from the second from the last
         i = n - 2
+        # must be "I <= 0", this will solve the problem of [3,2,1]. then i will be -1
         while i >= 0 and nums[i] >= nums[i + 1]:
             i -= 1
         # now i = 3, which points to 5
-        
+        # for the problem [3,2,1], i will be -1. it will not go to the if block below
         if i >= 0: #if this number exists
             # Step 2, find first larger number to the right of nums[i]
             #.        find from the last nuber
@@ -38,6 +39,7 @@ class Solution:
             nums[i], nums[j] = nums[j], nums[i]
         
         # Step 4: revert the  sublist after i+1 inclusively. [1,2,3,6,4,5,7]
+        #         for the problem [3,2,1], it becomes [1,2,3]
         nums[i+1:] = nums[i+1:][::-1]
         
         return nums
