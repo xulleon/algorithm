@@ -60,4 +60,42 @@ class Solution:
             
     def valid(self, x, y, max_rows, max_cols):
         return 0 <= x < max_rows and 0 <= y < max_cols
-                
+
+# Solution 2
+# 3892 ms Beats 65.71%, 17.71 MB Beats 28.67%
+
+class Solution:
+    xys = [(0,1), (1,0), (0,-1), (-1,0)]
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        rows, cols = len(board), len(board[0])
+        if rows == 0 and cols == 0:
+            return False if len(word) == 0 else False
+        
+        for i in range(rows):
+            for j in range(cols):
+                if self.dfs(i, j, board, word):
+                    return True
+        return False
+
+    def dfs(self, x, y, board, word):
+        if board[x][y] != word[0]:
+            return False
+
+        # This is the exit!!!
+        if len(word) == 1:
+            return True
+
+        rows, cols = len(board), len(board[0])
+        char = board[x][y]
+        
+        # Instead using visited, below is a better way to deal the visited problem!!!
+        board[x][y] = '#'
+        for dx, dy in self.xys:
+            xx, yy = x + dx, y + dy
+
+            if 0 <= xx < rows and 0 <= yy < cols and board[xx][yy] != '#':
+                if self.dfs(xx, yy, board, word[1:]):
+                    return True
+        board[x][y] = char
+
+        return False
