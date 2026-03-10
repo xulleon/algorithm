@@ -1,4 +1,22 @@
 # https://www.lintcode.com/problem/680/
+# Description:
+# Given a string, you can split the string into substrings of (1) one character or (2) two characters. Return all possible combinations of substrings.
+# Example:
+# Input: "123"
+# Output: [["1","2","3"], ["1","23"], ["12","3"]]
+
+# Input: "12345"
+# Output: [
+#   ["1","2","3","4","5"],
+#   ["1","2","3","45"],
+#   ["1","2","34","5"],
+#   ["1","23","4","5"],
+#   ["1","23","45"],
+#   ["12","3","4","5"],
+#   ["12","3","45"],
+#   ["12","34","5"]
+# ]
+
 def split_string(s):
     if s == '':
         return []
