@@ -22,20 +22,23 @@ def split_string(s):
         return []
         
     results = []
-    dfs(s, 0, [], results)
+    dfs(s, [], results)
     return results
     
-def dfs(s, index, subsets, results):
-    if s == '' and len(subsets) != 1:
+def dfs(s, subsets, results):
+    if s == '' and len(subsets) > 0:
         results.append(subsets)
         
-    for length in range(len(s)):
-        prefix = s[: length + 1]
-        
-        
+    for length in range(1, len(s) + 1):
+        # length means the size of a group of substring
+        if length > 2:
+            # ensure that the max group is no more than 2
+            # means that there will not be any thing like '123' or '1234' only '12' or '1','2'
+            continue
+            
+        prefix = s[:length]
         subsets.append(prefix)
-        print('length:', length, 'prefix:', prefix, 'subsets:', subsets)
-        dfs(s[length+1:], length + 1, subsets[:], results)
+        dfs(s[length:], subsets[:], results)
         subsets.pop()
     
 if __name__ == "__main__":
